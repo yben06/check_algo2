@@ -1,0 +1,136 @@
+//1st Problem array
+ALGORITHM distinct_elements_solution1
+VAR
+    set1 : ARRAY_OF INTEGER[5]; 
+    set2 : ARRAY_OF INTEGER[7]; 
+    i : INTEGER;
+    set3_length : INTEGER := 0;
+    set3 : ARRAY_OF INTEGER[]; 
+    sum_distinct : INTEGER := 0;
+BEGIN
+    set1 := {13,5,24,3,6};
+    set2 := {6,5,15,10,4,24,20};
+    FOR i FROM 0 TO set1.length-1 STEP step  DO
+       IF (set2.includes(set1[i])=FALSE) THEN
+       sum_distinct := sum_distinct + set1[i];
+       set3[set3_length] := set1[i] ;
+       set3_length := set3_length +1 ;     
+       END_IF
+    END_FOR
+     FOR i FROM 0 TO set2.length-1 STEP step  DO
+       IF (set1.includes(set2[i])=FALSE) THEN
+       sum_distinct := sum_distinct + set2[i];
+       set3[set3_length] := set2[i] ;
+       set3_length := set3_length +1 ;     
+       END_IF
+    END_FOR
+    write ("The sum of distinct elements is : ",sum_distinct);
+    write ("Distinct elements are : ", set3);    
+END
+
+//1st Problem : using Hash Tables
+ALGORITHM distinct_elements_solution2
+VAR
+    set1 : HASH_TABLE<INTEGER,INTEGER>;  
+    set2 : HASH_TABLE<INTEGER,INTEGER>;  
+    i : INTEGER;
+    set3_length : INTEGER := 0;
+    set3 : HASH_TABLE<INTEGER,INTEGER>; 
+    sum_distinct : INTEGER := 0;
+BEGIN
+   set1.insert(0,13);
+   set1.insert(1,5);
+   set1.insert(2,24);
+   set1.insert(3,3);
+   set1.insert(4,6);   
+
+   set2.insert(0,6);
+   set2.insert(1,5);
+   set2.insert(2,15);
+   set2.insert(3,10);
+   set2.insert(4,4); 
+   set2.insert(5,24);
+   set2.insert(6,20);   
+   
+   FOR i FROM 0 TO 4 STEP step  DO
+       IF (set2.lookup(set1(i)) = FALSE) THEN
+           sum_distinct := sum_distinct + set1.get(i);
+           set3.insert(set3_length,set1.get(i));
+           set3_length := set3_length + 1;
+       END_IF
+   END_FOR
+   FOR i FROM 0 TO 6 STEP step  DO
+       IF (set1.lookup(set2(i)) = FALSE) THEN
+           sum_distinct := sum_distinct + set2.get(i);
+           set3.insert(set3_length,set2.get(i));
+           set3_length := set3_length + 1;
+       END_IF
+   END_FOR
+     write ("The sum of distinct elements is : ",sum_distinct);
+     write ("Distinct elements are : ");
+     FOR i FROM 0 TO set3_length STEP step  DO
+       write (set3.get(i));
+     END_FOR
+END
+
+//2nd Problem : using Arrays
+ALGORITHM overlapping_elements_solution1
+VAR
+    set1 : ARRAY_OF INTEGER[5]; 
+    set2 : ARRAY_OF INTEGER[7]; 
+    i : INTEGER;
+    set3_length : INTEGER := 0;
+    set3 : ARRAY_OF INTEGER[]; 
+    sum_overlapping : INTEGER := 0;
+BEGIN
+    set1 := {13,5,24,3,6};
+    set2 := {6,5,15,10,4,24,20};
+    FOR i FROM 0 TO set1.length-1 STEP step  DO
+       IF (set2.includes(set1[i])) THEN
+       sum_overlapping := sum_overlapping + set1[i];
+       set3[set3_length] := set1[i] ;
+       set3_length := set3_length +1 ;     
+       END_IF
+    END_FOR
+    write ("The sum of overlapping elements is : ",sum_overlapping );
+    write ("Overlapping elements are : ", set3);  
+END
+
+//2nd Problem : using Hash Tables
+ALGORITHM overlapping_elements_solution2
+VAR
+    set1 : HASH_TABLE<INTEGER,INTEGER>;  
+    set2 : HASH_TABLE<INTEGER,INTEGER>;  
+    i : INTEGER;
+    set3_length : INTEGER := 0;
+    set3 : HASH_TABLE<INTEGER,INTEGER>; 
+    sum_overlapping : INTEGER := 0;
+BEGIN
+   set1.insert(0,13);
+   set1.insert(1,5);
+   set1.insert(2,24);
+   set1.insert(3,3);
+   set1.insert(4,6);   
+
+   set2.insert(0,6);
+   set2.insert(1,5);
+   set2.insert(2,15);
+   set2.insert(3,10);
+   set2.insert(4,4); 
+   set2.insert(5,24);
+   set2.insert(6,20);   
+   
+   FOR i FROM 0 TO 4 STEP step  DO
+       IF (set2.lookup(set1(i))) THEN
+           sum_overlapping := sum_overlapping + set1.get(i);
+           set3.insert(set3_length,set1.get(i));
+           set3_length := set3_length + 1;
+       END_IF
+   END_FOR
+     write ("The sum of overlapping elements is : ",sum_overlapping);
+     write ("Overlapping elements are : ");
+     FOR i FROM 0 TO set3_length STEP step  DO
+       write (set3.get(i));
+     END_FOR
+
+END
